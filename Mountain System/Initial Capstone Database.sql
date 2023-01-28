@@ -31,13 +31,14 @@ CREATE TABLE Capstone.dbo.Orders (
 	Quantity	int,
 	ShipperID	int,
 	ShippedDate	datetime,
-	DeliveredDate	datetime
+	DeliveredDate	datetime,
+	OrderComplete INT NOT NULL DEFAULT 0
 );
 
-INSERT INTO Capstone.dbo.Orders VALUES(11, 1, 5556, '20230102', 501, 5, 21, '', '');
-INSERT INTO Capstone.dbo.Orders VALUES(12, 2, 5557, '20221005', 502, 21, NULL, '', '');
-INSERT INTO Capstone.dbo.Orders VALUES(13, 2, 5558, '20220815', 505, 15, 23, '20220817', '20220825');
-INSERT INTO Capstone.dbo.Orders VALUES(14, 4, 5559, '20220620', 507, 18, 23, '20220623', '20220701');
+INSERT INTO Capstone.dbo.Orders VALUES(11, 1, 5556, '20230102', 501, 5, 21, '', '',0);
+INSERT INTO Capstone.dbo.Orders VALUES(12, 2, 5557, '20221005', 502, 21, NULL, '', '',0);
+INSERT INTO Capstone.dbo.Orders VALUES(13, 2, 5558, '20220815', 505, 15, 23, '20220817', '20220825',1);
+INSERT INTO Capstone.dbo.Orders VALUES(14, 4, 5559, '20220620', 507, 18, 23, '20220623', '20220701',1);
 
 CREATE TABLE Capstone.dbo.Employees (
 	EmployeeID	int	NOT NULL PRIMARY KEY,
@@ -68,14 +69,16 @@ CREATE TABLE Capstone.dbo.Products (
 	SupplierID	int,
 	CategoryID	int,
 	UnitPrice	money,
-	UnitsInStock	int
+	UnitsInStock	int,
+	MaxDesiredStock int,
+	ReorderThreshold int
 );
 
-INSERT INTO Capstone.dbo.Products VALUES(501, 'Razor', 844, 222, 34.45, 256);
-INSERT INTO Capstone.dbo.Products VALUES(502, 'Hairbrush', 845, 222, 12.62, 654);
-INSERT INTO Capstone.dbo.Products VALUES(505, 'Screen Door', 854, 254, 1.66, 254);
-INSERT INTO Capstone.dbo.Products VALUES(507, 'Pumpkin', 875, 217, 21.32, 123);
-INSERT INTO Capstone.dbo.Products VALUES(508, 'Cookie', 812, 217, 33.78, 237);
+INSERT INTO Capstone.dbo.Products VALUES(501, 'Razor', 844, 222, 34.45, 256, 500, 100);
+INSERT INTO Capstone.dbo.Products VALUES(502, 'Hairbrush', 845, 222, 12.62, 654, 1000, 200);
+INSERT INTO Capstone.dbo.Products VALUES(505, 'Screen Door', 854, 254, 1.66, 254, 500, 100);
+INSERT INTO Capstone.dbo.Products VALUES(507, 'Pumpkin', 875, 217, 21.32, 123, 500, 100);
+INSERT INTO Capstone.dbo.Products VALUES(508, 'Cookie', 812, 217, 33.78, 237, 500, 100);
 
 CREATE TABLE Capstone.dbo.Suppliers (
 	SupplierID	int	NOT NULL PRIMARY KEY,
