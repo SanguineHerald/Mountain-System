@@ -22,9 +22,19 @@ namespace Mountain_System
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public MainPage()
+        public +MainPage()
         {
             this.InitializeComponent();
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
