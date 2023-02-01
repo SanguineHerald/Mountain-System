@@ -36,5 +36,26 @@ namespace Mountain_System
         {
 
         }
+        
+        namespace PassportLogin.Views
+{
+    public sealed partial class Login : Page
+    {
+        public Login()
+        {
+            this.InitializeComponent();
+        }
+
+        private void PassportSignInButton_Click(object sender, RoutedEventArgs e)
+        {
+            ErrorMessage.Text = "";
+        }
+        private void RegisterButtonTextBlock_OnPointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            ErrorMessage.Text = "";
+        }
+    }
+}
+
     }
 }
