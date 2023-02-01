@@ -27,7 +27,12 @@ namespace Mountain_System
             this.InitializeComponent();
         }
 
-        private void TextBox_TextChanged()
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
 
         }
