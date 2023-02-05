@@ -22,7 +22,7 @@ namespace Mountain_System
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public +MainPage()
+        public MainPage()
         {
             this.InitializeComponent();
         }
