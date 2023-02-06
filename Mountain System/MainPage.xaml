@@ -10,7 +10,6 @@
 
     <Grid>
         <TextBox HorizontalAlignment="Left" Margin="299,101,0,0" TextWrapping="Wrap" Text="Welcome to Spring Mountain Ordering System" VerticalAlignment="Top" Height="95" Width="864" TextChanged="TextBox_TextChanged" FontSize="36" FontWeight="Bold" TextAlignment="Center"/>
-        <Button Content="Connect to the Database" Height="94" Margin="514,248,0,0" VerticalAlignment="Top" Width="373" FontWeight="Bold" FontStyle="Italic" FontSize="22"/>
         <Button Content="Select Employee" Height="94" Margin="268,406,0,0" VerticalAlignment="Top" Width="373" Click="Button_Click" FontSize="22" FontWeight="Bold" FontStyle="Italic"/>
         <Button Content="Select Employee" Height="95" Margin="790,406,0,0" VerticalAlignment="Top" Width="373" FontSize="22" FontWeight="Bold" FontStyle="Italic"/>
 
