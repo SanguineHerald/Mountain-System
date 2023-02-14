@@ -14,6 +14,7 @@ namespace Mountain_System
     internal class SqlConn
     {
         private string connectionString = @"server=(local)\SQLExpress;database=Northwind;integrated Security=SSPI;";
+
         private SqlConnection sqlConnection { get; set; }
 
         //call when opening a page to establish SQL connection
@@ -70,6 +71,20 @@ namespace Mountain_System
         {
             string sqlOrder = "UPDATE Products SET UnitsInStock=MaxDesiredStock WHERE ProductID = @product";
             this.sqlConnection.Execute(sqlOrder, new {product=productID});
+        }
+
+        public List<Customer> GetCustomerID()
+        {
+            string sql = "SELECT * FROM Customer";
+            List<Customer> customers= this.sqlConnection.Query<Customer>(sql).ToList();
+            return customers;
+        }
+
+        public List<Employee> GetEmployeeID()
+        {
+            string sql = "SELECT * FROM Employee";
+            List<Employee> employees = this.sqlConnection.Query<Employee>(sql).ToList();
+            return employees;
         }
 
     }

@@ -22,6 +22,9 @@ namespace Mountain_System
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private string getEmployeeID;
+        private string getCustomerID;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -32,9 +35,25 @@ namespace Mountain_System
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Employee_ID_TextChanged_2(object sender, TextChangedEventArgs e)
         {
+            InitializeComponent();
+            string employee = getEmployeeID;
 
+        }
+
+        private void DB_Connect_Click(object sender, RoutedEventArgs e)
+        {
+            InitializeComponent();
+
+            SqlConn connection = new SqlConn();
+
+        }
+
+        private void CustomerID_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            InitializeComponent();
+            string customer = getCustomerID;
         }
     }
 }
