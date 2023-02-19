@@ -24,10 +24,16 @@ namespace Mountain_System
     {
         private string getEmployeeID;
         private string getCustomerID;
+        private SqlConn connection;
+        private List<Employee> employees;
+        private List<Customer> customers;
 
         public MainPage()
         {
             this.InitializeComponent();
+            connection = new SqlConn();
+            employees = connection.GetEmployeeID();
+            customers = connection.GetCustomerID();
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -45,8 +51,41 @@ namespace Mountain_System
         private void DB_Connect_Click(object sender, RoutedEventArgs e)
         {
             InitializeComponent();
-
-            SqlConn connection = new SqlConn();
+            if(string.IsNullOrEmpty(Employee_ID.Text) && string.IsNullOrEmpty(CustomerID.Text))
+            {
+                //TODO message to fill out some ID
+                return;
+            }
+            if (!string.IsNullOrEmpty(Employee_ID.Text) && !string.IsNullOrEmpty(CustomerID.Text))
+            {
+                //TODO message to only fill out one ID
+                return;
+            }
+            if(!string.IsNullOrEmpty(Employee_ID.Text) && string.IsNullOrEmpty(CustomerID.Text))
+            {
+                foreach(Employee employee in employees)
+                {
+                    if(employee.EmployeeID.ToString() == Employee_ID.Text)
+                    {
+                        //TODO move to employee page with employee ID
+                        this.Frame.Navigate(typeof(EmployeePage));
+                        return;
+                    }
+                }
+                //TODO message that employee is not found
+            }
+            if (string.IsNullOrEmpty(Employee_ID.Text) && !string.IsNullOrEmpty(CustomerID.Text))
+            {
+                foreach (Customer customer in customers)
+                {
+                    if (customer.CustomerID.ToString() == CustomerID.Text)
+                    {
+                        //TODO move to customer page with Customer ID
+                        return;
+                    }
+                }
+                //TODO message that employee is not found
+            }
 
         }
 
