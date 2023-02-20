@@ -29,10 +29,16 @@ namespace Mountain_System
     {
         private string getEmployeeID;
         private string getCustomerID;
+        private SqlConn connection;
+        private List<Employee> employees;
+        private List<Customer> customers;
 
         public MainPage()
         {
             this.InitializeComponent();
+            connection = new SqlConn();
+            employees = connection.GetEmployeeID();
+            customers = connection.GetCustomerID();
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
