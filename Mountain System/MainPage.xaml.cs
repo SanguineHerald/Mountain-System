@@ -88,7 +88,8 @@ namespace Mountain_System
                         return;
                     }
                 }
-                //TODO message that employee is not found
+                //TODO message that customer is not found. LAN 18Feb See Code Below
+                Var messageDialog3 = new Windows.UI.Popups.MessageDialog("Customer ID Not Found");
             }
 
         }
