@@ -90,12 +90,12 @@ namespace Mountain_System
                     if (customer.CustomerID.ToString() == CustomerID.Text)
                     {
                         //TODO move to customer page with Customer ID. LAN 19Feb. Copied code from above. No customer page has been created yet. 
-                        this.Frame.Navigate(typeof(CustomerPage));
+                        // this.Frame.Navigate(typeof(CustomerPage));
                         return;
                     }
                 }
                 //TODO message that customer is not found. LAN 18Feb See Code Below
-                Var messageDialog3 = new Windows.UI.Popups.MessageDialog("Customer ID Not Found");
+                var messageDialog3 = new Windows.UI.Popups.MessageDialog("Customer ID Not Found");
             }
 
         }
