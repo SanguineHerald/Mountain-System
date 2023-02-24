@@ -13,7 +13,7 @@ namespace Mountain_System
 {
     internal class SqlConn
     {
-        private string connectionString = @"server=(local);initial catalog=Capstone;integrated Security=SSPI;";
+        private string connectionString = @"server=AZURE-D8JGSQ4UA\SQLEXPRESS;initial catalog=Capstone;integrated Security=SSPI;";
 
         private SqlConnection sqlConnection { get; set; }
 
@@ -86,6 +86,36 @@ namespace Mountain_System
             List<Employee> employees = this.sqlConnection.Query<Employee>(sql).ToList();
             return employees;
         }
+        public void InsertSplashCustomerIDIntoDB(int CustomerID)
+        {
+            // Inserts the user-entered CustomerID from the MainPage to the database table MainSplashVars.
+            string sqlOrder = "UPDATE MainSplashVars SET CustomerID = @customer WHERE SplashIndex = 1";
+            this.sqlConnection.Execute(sqlOrder, new { customer = CustomerID });
+        }
+
+        public int GetSplashCustomerIDFromDB()
+        {
+            // Get CustomerID from database table MainSplashVars.            
+
+            string sql = "SELECT CustomerID FROM MainSplashVars WHERE SplashIndex = 1";
+            int CustomerIDInt;
+            SqlCommand cmd = new SqlCommand(sql, sqlConnection);
+            CustomerIDInt = (int)cmd.ExecuteScalar();
+            return CustomerIDInt;
+
+        }
+        
+        public string GetSplashCustomerCompanyNameFromDB(int CustomerIDinput)
+        {
+            // Get CustomerID from database table MainSplashVars.            
+
+            string sql = @"SELECT CustomerCompanyName FROM Customers WHERE CustomerID = @CustomerIDvar";
+            string CustomerIDStr;
+            SqlCommand cmd = new SqlCommand(sql, sqlConnection);
+            cmd.Parameters.Add("@CustomerIDvar", System.Data.SqlDbType.Int).Value = CustomerIDinput;
+            CustomerIDStr = (string)cmd.ExecuteScalar();
+            return CustomerIDStr;
+        }
 
     }
     internal class Customer
@@ -155,5 +185,11 @@ namespace Mountain_System
     {
         public int SupplierID { get; set; }
         public string SupplierCompanyName { get; set; }
-    }    
+    }
+    internal class MainSplashVars
+    {
+        public int SplashIndex { get; set; }
+        public int Employee_ID { get; set; }
+        public int CustomerID { get; set; }
+    }
 }
