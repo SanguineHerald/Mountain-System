@@ -15,6 +15,5 @@
         <TextBlock x:Name="Employee_ID1_Copy" HorizontalAlignment="Left" Margin="496,324,0,0" TextWrapping="Wrap" Text="Input Customer ID" VerticalAlignment="Top" FontSize="24" Height="52" Width="222" RenderTransformOrigin="1.072,-0.454" FontStyle="Normal" FontWeight="Bold" TextDecorations="None" TextAlignment="Right" LineHeight="22"/>
         <TextBlock x:Name="Header" HorizontalAlignment="Left" Margin="439,156,0,0" TextWrapping="Wrap" Text="Welcome to Spring Mountain Ordering System" VerticalAlignment="Top" Height="87" Width="750" FontSize="34" TextAlignment="Center"/>
         <TextBox x:Name="CustomerID" HorizontalAlignment="Left" Margin="732,324,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="47" Width="343" FontSize="24" TextChanged="CustomerID_TextChanged"/>
-
     </Grid>
 </Page>

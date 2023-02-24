@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Navigation;
 using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
-
+using Windows.UI.Popups;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -25,13 +25,12 @@ namespace Mountain_System
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
+
     public sealed partial class MainPage : Page
     {
-        private string getEmployeeID;
-        private string getCustomerID;
         private SqlConn connection;
         private List<Employee> employees;
-        private List<Customer> customers;
+        private readonly List<Customer> customers;
 
         public MainPage()
         {
@@ -49,7 +48,7 @@ namespace Mountain_System
         private void Employee_ID_TextChanged_2(object sender, TextChangedEventArgs e)
         {
             InitializeComponent();
-            string employee = getEmployeeID;
+            string employee = Employee_ID.Text;
 
         }
 
@@ -61,12 +60,17 @@ namespace Mountain_System
                 //TODO message to fill out some ID. LAN 19Feb. See Code Below.
                 var messageDialog = new Windows.UI.Popups.MessageDialog("Input Employee or Customer ID");
 
+                //This shows the popup with the message.
+                var result = await messageDialog.ShowAsync();
                 return;
             }
             if (!string.IsNullOrEmpty(Employee_ID.Text) && !string.IsNullOrEmpty(CustomerID.Text))
             {
                 //TODO message to only fill out one ID. LAN 19Feb. See Code Below.
                 var messageDialog2 = new Windows.UI.Popups.MessageDialog("ONLY Input Employee or Customer ID...Not Both");
+
+                //This shows the popup with the message.
+                var result = await messageDialog2.ShowAsync();
                 return;
             }
             if(!string.IsNullOrEmpty(Employee_ID.Text) && string.IsNullOrEmpty(CustomerID.Text))
@@ -89,13 +93,18 @@ namespace Mountain_System
                 {
                     if (customer.CustomerID.ToString() == CustomerID.Text)
                     {
+                        // Insert user-entered CustomerID into database table
+                        connection.InsertSplashCustomerIDIntoDB(customer.CustomerID);
+
                         //TODO move to customer page with Customer ID. LAN 19Feb. Copied code from above. No customer page has been created yet. 
-                        // this.Frame.Navigate(typeof(CustomerPage));
+                        this.Frame.Navigate(typeof(CustomerPage));
                         return;
                     }
                 }
                 //TODO message that customer is not found. LAN 18Feb See Code Below
                 var messageDialog3 = new Windows.UI.Popups.MessageDialog("Customer ID Not Found");
+                //This shows the popup with the message.
+                var result = await messageDialog3.ShowAsync();
             }
 
         }
@@ -103,7 +112,7 @@ namespace Mountain_System
         private void CustomerID_TextChanged(object sender, TextChangedEventArgs e)
         {
             InitializeComponent();
-            string customer = getCustomerID;
+            string customer = CustomerID.Text;
         }
     }
 }
