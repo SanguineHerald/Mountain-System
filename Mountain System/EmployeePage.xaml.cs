@@ -16,15 +16,21 @@ using Windows.UI.Xaml.Navigation;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Mountain_System
-{
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+{   
+    
     public sealed partial class EmployeePage : Page
     {
+        private Employee employee;
         public EmployeePage()
         {
             this.InitializeComponent();
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            employee = (Employee)e.Parameter;
+            Employee_Name_Block.Text = "Employee Name: " + employee.FirstName +" "+ employee.LastName ;
+            Employee_ID_Block.Text = "ID: " + employee.EmployeeID;
         }
     }
 }

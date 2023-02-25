@@ -68,7 +68,7 @@ namespace Mountain_System
                     if(employee.EmployeeID.ToString() == Employee_ID.Text)
                     {
                         //TODO move to employee page with employee ID
-                        this.Frame.Navigate(typeof(EmployeePage));
+                        this.Frame.Navigate(typeof(EmployeePage), employee);
                         return;
                     }
                 }
