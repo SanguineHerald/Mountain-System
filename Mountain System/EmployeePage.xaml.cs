@@ -16,14 +16,16 @@ using Windows.UI.Xaml.Navigation;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Mountain_System
-{   
-    
+{
+
     public sealed partial class EmployeePage : Page
     {
         private Employee employee;
+        private EmployeeViewModel ViewModel{get; set;}
         public EmployeePage()
         {
             this.InitializeComponent();
+            this.ViewModel= new EmployeeViewModel();
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -31,6 +33,7 @@ namespace Mountain_System
             employee = (Employee)e.Parameter;
             Employee_Name_Block.Text = "Employee Name: " + employee.FirstName +" "+ employee.LastName ;
             Employee_ID_Block.Text = "ID: " + employee.EmployeeID;
+            
         }
     }
 }

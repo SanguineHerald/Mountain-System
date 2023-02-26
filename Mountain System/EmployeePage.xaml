@@ -58,7 +58,7 @@
                 </Border>
                 <Border BorderThickness="2" BorderBrush="Black">
                     <StackPanel Orientation="Vertical" Padding="20">
-                        <ListView>
+                        <ListView ItemsSource="{x:Bind ViewModel.lowProducts}">
                             <ListView.HeaderTemplate>
                                 <DataTemplate>
                                     <Grid Padding="12" Background="{ThemeResource SystemBaseLowColor}">
@@ -80,14 +80,21 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate x:Name="RestockTableTemplate" x:DataType="local:Product">
                                     <Grid Height="48" AutomationProperties.Name="{x:Bind ProductID}">
-                                        <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{x:Bind ProductID}" />
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="100"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding ProductID}" />
                                         <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{x:Bind SupplierID}" />
                                         <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{x:Bind UnitsInStock}"/>
                                         <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="{x:Bind ReorderThreshhold}"/>
                                         <Button Grid.Column="4" VerticalAlignment="Center" Content="Complete Order" Name="Restock_Button"/>
                                     </Grid>
                                 </DataTemplate>
-                            </ListView.ItemTemplate>
+                            </ListView.ItemTemplate>  
                         </ListView>
                     </StackPanel>
                 </Border>                
