@@ -13,7 +13,7 @@ namespace Mountain_System
 {
     internal class SqlConn
     {
-        private string connectionString = @"server=(local);initial catalog=Capstone;integrated Security=SSPI;";
+        private string connectionString = @"server=AZURE-D8JGSQ4UA\SQLEXPRESS;initial catalog=Capstone;integrated Security=SSPI;";
 
         private SqlConnection sqlConnection { get; set; }
 
@@ -53,13 +53,20 @@ namespace Mountain_System
             string sqlDate = myDateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
             string sql = "INSERT INTO Orders VALUES (@orderID,@customerID,null,@date,@productID,@productQty,null,null,null,0)";
             this.sqlConnection.Execute(sql, new { orderID = order.OrderID, customerID = order.CustomerID, date = sqlDate, productID = order.ProductID, productQty = order.Quantity });
+       }
+        public void CreateOrder(int OrderID, int CustomerIDint, int ProductIDInt, int QtyInt)
+        {            
+            DateTime myDateTime = DateTime.Now;
+            string sqlDate = myDateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
+            string sql = "INSERT INTO Capstone.dbo.Orders VALUES (@OrderID,@CustomerIDint,null,@sqlDate,@ProductIDInt,@QtyInt,null,null,null,0)";
+            this.sqlConnection.Execute(sql, new { OrderID = OrderID, CustomerIDint = CustomerIDint, sqlDate = sqlDate, ProductIDInt = ProductIDInt, QtyInt = QtyInt });
         }
         public int GetNextOrderID()
         {
             string sql = "select MAX(OrderID) from Orders";
-            string OrderID = this.sqlConnection.Query<int>(sql).ToString();
-            int ID = int.Parse(OrderID);
-            return ID + 1;
+            SqlCommand cmd = new SqlCommand(sql, sqlConnection);
+            int OrderIDint = (int)cmd.ExecuteScalar();
+            return OrderIDint + 1;
         }
         public List<Product> GetLowSupplyProducts()
         {
@@ -85,6 +92,18 @@ namespace Mountain_System
             string sql = "SELECT * FROM Employees";
             List<Employee> employees = this.sqlConnection.Query<Employee>(sql).ToList();
             return employees;
+        }        
+
+        public int GetProdIDfromProdName(string ProductNameInput)
+        {
+            // On CustomerPage, getting the ProductID from the ProductName.            
+
+            string sql = "SELECT ProductID FROM Products WHERE ProductName = @ProductNameVar";
+            SqlCommand cmd = new SqlCommand(sql, sqlConnection);
+            cmd.Parameters.Add("@ProductNameVar", System.Data.SqlDbType.Int).Value = ProductNameInput;
+            int ProductIDInt = (int)cmd.ExecuteScalar();
+            return ProductIDInt;
+
         }
 
         public List<Shipper> GetShippers()
@@ -164,5 +183,11 @@ namespace Mountain_System
     {
         public int SupplierID { get; set; }
         public string SupplierCompanyName { get; set; }
-    }    
+    }
+    internal class MainSplashVars
+    {
+        public int SplashIndex { get; set; }
+        public int Employee_ID { get; set; }
+        public int CustomerID { get; set; }
+    }
 }
