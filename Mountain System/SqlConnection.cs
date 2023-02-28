@@ -53,13 +53,20 @@ namespace Mountain_System
             string sqlDate = myDateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
             string sql = "INSERT INTO Orders VALUES (@orderID,@customerID,null,@date,@productID,@productQty,null,null,null,0)";
             this.sqlConnection.Execute(sql, new { orderID = order.OrderID, customerID = order.CustomerID, date = sqlDate, productID = order.ProductID, productQty = order.Quantity });
+       }
+        public void CreateOrder(int OrderID, int CustomerIDint, int ProductIDInt, int QtyInt)
+        {            
+            DateTime myDateTime = DateTime.Now;
+            string sqlDate = myDateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
+            string sql = "INSERT INTO Capstone.dbo.Orders VALUES (@OrderID,@CustomerIDint,null,@sqlDate,@ProductIDInt,@QtyInt,null,null,null,0)";
+            this.sqlConnection.Execute(sql, new { OrderID = OrderID, CustomerIDint = CustomerIDint, sqlDate = sqlDate, ProductIDInt = ProductIDInt, QtyInt = QtyInt });
         }
         public int GetNextOrderID()
         {
             string sql = "select MAX(OrderID) from Orders";
-            string OrderID = this.sqlConnection.Query<int>(sql).ToString();
-            int ID = int.Parse(OrderID);
-            return ID + 1;
+            SqlCommand cmd = new SqlCommand(sql, sqlConnection);
+            int OrderIDint = (int)cmd.ExecuteScalar();
+            return OrderIDint + 1;
         }
         public List<Product> GetLowSupplyProducts()
         {
@@ -85,36 +92,18 @@ namespace Mountain_System
             string sql = "SELECT * FROM Employees";
             List<Employee> employees = this.sqlConnection.Query<Employee>(sql).ToList();
             return employees;
-        }
-        public void InsertSplashCustomerIDIntoDB(int CustomerID)
-        {
-            // Inserts the user-entered CustomerID from the MainPage to the database table MainSplashVars.
-            string sqlOrder = "UPDATE MainSplashVars SET CustomerID = @customer WHERE SplashIndex = 1";
-            this.sqlConnection.Execute(sqlOrder, new { customer = CustomerID });
-        }
+        }        
 
-        public int GetSplashCustomerIDFromDB()
+        public int GetProdIDfromProdName(string ProductNameInput)
         {
-            // Get CustomerID from database table MainSplashVars.            
+            // On CustomerPage, getting the ProductID from the ProductName.            
 
-            string sql = "SELECT CustomerID FROM MainSplashVars WHERE SplashIndex = 1";
-            int CustomerIDInt;
+            string sql = "SELECT ProductID FROM Products WHERE ProductName = @ProductNameVar";
             SqlCommand cmd = new SqlCommand(sql, sqlConnection);
-            CustomerIDInt = (int)cmd.ExecuteScalar();
-            return CustomerIDInt;
+            cmd.Parameters.Add("@ProductNameVar", System.Data.SqlDbType.Int).Value = ProductNameInput;
+            int ProductIDInt = (int)cmd.ExecuteScalar();
+            return ProductIDInt;
 
-        }
-        
-        public string GetSplashCustomerCompanyNameFromDB(int CustomerIDinput)
-        {
-            // Get CustomerID from database table MainSplashVars.            
-
-            string sql = @"SELECT CustomerCompanyName FROM Customers WHERE CustomerID = @CustomerIDvar";
-            string CustomerIDStr;
-            SqlCommand cmd = new SqlCommand(sql, sqlConnection);
-            cmd.Parameters.Add("@CustomerIDvar", System.Data.SqlDbType.Int).Value = CustomerIDinput;
-            CustomerIDStr = (string)cmd.ExecuteScalar();
-            return CustomerIDStr;
         }
 
     }
