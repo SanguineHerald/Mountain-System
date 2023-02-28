@@ -93,11 +93,8 @@ namespace Mountain_System
                 {
                     if (customer.CustomerID.ToString() == CustomerID.Text)
                     {
-                        // Insert user-entered CustomerID into database table
-                        connection.InsertSplashCustomerIDIntoDB(customer.CustomerID);
-
                         //TODO move to customer page with Customer ID. LAN 19Feb. Copied code from above. No customer page has been created yet. 
-                        this.Frame.Navigate(typeof(CustomerPage));
+                        this.Frame.Navigate(typeof(CustomerPage), customer);
                         return;
                     }
                 }

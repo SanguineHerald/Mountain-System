@@ -31,15 +31,14 @@
                     </Grid>
                 </StackPanel>
             </Border>
-            <Button x:Name="PlaceOrder" Content="Place Order" Margin="935,30,0,0" VerticalAlignment="Top" FontSize="24" Height="57" Width="339" Click="PlaceOrder_Click" FontWeight="Bold"/>
 
             <StackPanel Orientation="Vertical" Padding="20" Margin="20">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="175"/>
                         <ColumnDefinition Width="400"/>
-                        <ColumnDefinition Width="170"/>
-                        <ColumnDefinition Width="170"/>
+                        <ColumnDefinition Width="190"/>
+                        <ColumnDefinition Width="190"/>
                         <ColumnDefinition Width="170"/>
                         <ColumnDefinition Width="170"/>
                     </Grid.ColumnDefinitions>
@@ -52,8 +51,36 @@
                 </Grid>
             </StackPanel>
 
+            <StackPanel Orientation="Vertical" Padding="20" Margin="20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="175"/>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="170"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="170"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" x:Name="OrderIDFld" FontSize="20" BorderThickness="0"/>
+                    <ComboBox Grid.Column="1" x:Name="CustomerProductNameComboBox" Height = "57" Width = "339" FontSize="20" SelectionChanged="CustomerProductNameComboBox_SelectionChanged"></ComboBox>
+                    <TextBox Grid.Column="2" x:Name="ProductIDFld" FontSize="20" BorderThickness="0"/>
+                    <ComboBox Grid.Column="3" x:Name="QtyFldComboBox" Height = "57" Width = "170" FontSize="20" SelectionChanged="QtyFldComboBox_SelectionChanged"></ComboBox>
+                    <TextBox Grid.Column="4" x:Name="UnitPriceFld" FontSize="20" BorderThickness="0"/>
+                    <TextBox Grid.Column="5" x:Name="TotalPriceFld" FontSize="20" BorderThickness="0"/>
+                </Grid>
 
-            <ComboBox x:Name ="CustomerProductNameComboBox" Height = "57" Width = "339" HorizontalAlignment = "Left" Margin = "200,0,0,212"></ComboBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Padding="20" Margin="20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1100"/>
+                        <ColumnDefinition Width="400"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" x:Name="PlaceOrder" Content="Place Order" VerticalAlignment="Top" FontSize="24" Height="57" Width="200" Click="PlaceOrder_Click" FontWeight="Bold"/>
+                    <Button Grid.Column="1" x:Name="Cancel" Content="Cancel" FontSize="24" Height="57" Width="200" Click="Cancel_Click"  FontWeight="Bold"/>
+                </Grid>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>
