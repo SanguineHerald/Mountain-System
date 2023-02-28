@@ -123,3 +123,13 @@ CREATE TABLE Capstone.dbo.MainSplashVars (
 );
 
 INSERT INTO Capstone.dbo.MainSplashVars VALUES(1, 5556, 1);
+
+CREATE TABLE Capstone.dbo.QuantityVals (
+	TheVals		int
+);
+
+INSERT INTO Capstone.dbo.QuantityVals VALUES(1);
+INSERT INTO Capstone.dbo.QuantityVals VALUES(2);
+INSERT INTO Capstone.dbo.QuantityVals VALUES(3);
+INSERT INTO Capstone.dbo.QuantityVals VALUES(4);
+INSERT INTO Capstone.dbo.QuantityVals VALUES(5);
