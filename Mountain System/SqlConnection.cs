@@ -30,16 +30,16 @@ namespace Mountain_System
         }
         public List<Order> GetUnfilledOrders()
         {
-            string sql = "SELECT * FROM Orders WHERE OrderComplete = 0";
+            string sql = "SELECT OrderID,CustomerID,EmployeeID,ProductID,Quantity,ShipperID,OrderComplete FROM Orders WHERE OrderComplete = 0";
             List<Order> orders = this.sqlConnection.Query<Order>(sql).ToList();
             return orders;
         }
         public void CompleteOrder(Order order, int shipperId, int employeeID)
         {
-            DateTime myDateTime = DateTime.Now;
-            string sqlDate = myDateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
-            string sqlOrder = "UPDATE Orders SET OrderComplete=1, ShippedDate=@date,ShipperID=@shipID,EmployeeID=@employeeID WHERE OrderID=@orderID";
-            this.sqlConnection.Execute(sqlOrder, new { date = sqlDate, shipID = shipperId, employeeID = employeeID, orderID = order.OrderID });
+            //DateTime myDateTime = DateTime.Now;
+            //string sqlDate = myDateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
+            string sqlOrder = "UPDATE Orders SET OrderComplete=1, ShipperID=@shipID,EmployeeID=@employeeID WHERE OrderID=@orderID";
+            this.sqlConnection.Execute(sqlOrder, new {  shipID = shipperId, employeeID = employeeID, orderID = order.OrderID });
         }
         public List<Product> GetProducts()
         {
@@ -70,7 +70,7 @@ namespace Mountain_System
         }
         public List<Product> GetLowSupplyProducts()
         {
-            string sql = "select * from Products WHERE ReorderThreshold < UnitsInStock";
+            string sql = "select * from Products WHERE ReorderThreshold > UnitsInStock";
             List<Product> products = this.sqlConnection.Query<Product>(sql).ToList();
             return products;
         }
@@ -106,6 +106,13 @@ namespace Mountain_System
 
         }
 
+        public List<Shipper> GetShippers()
+        {
+            string sql = "SELECT * FROM Shippers";
+            List<Shipper> shipper = this.sqlConnection.Query<Shipper>(sql).ToList();
+            return shipper;
+        }
+
     }
     internal class Customer
     {
@@ -125,25 +132,27 @@ namespace Mountain_System
     internal class Order
     {
         //use the getNextOrderID() method to get the ID number for this order
-        public Order(int ID, int customerId, int productID, int qty)
+        public Order(int OrderID, int CustomerId, int EmployeeID, int ProductID, int Quantity, int ShipperID, int OrderComplete)
         {
-            DateTime myDateTime = DateTime.Now;
-            string sqlDate = myDateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
-            this.OrderID = ID;
-            this.CustomerID = customerId;
-            this.ProductID = productID;
-            this.Quantity = qty;
-            this.OrderDate = sqlDate;
+            this.OrderID = OrderID;
+            this.CustomerID = CustomerId;
+            this.EmployeeID = EmployeeID;
+            this.ProductID = ProductID;
+            this.Quantity = Quantity;
+            this.ShipperID = ShipperID;
+            this.OrderID = OrderComplete;
         }
         public int OrderID { get; set; }
         public int  CustomerID { get; set; }
         public int EmployeeID { get; set; }
-        public string OrderDate  { get; set; }
+        public DateTime OrderDate  { get; set; }
         public int ProductID { get; set; }
 	    public int Quantity { get; set; }
         public int ShipperID { get; set; }
-        public string ShippedDate { get; set; }
-        public string DeliveredDate { get; set; }
+        public DateTime ShippedDate { get; set; }
+        public DateTime DeliveredDate { get; set; }
+        public int OrderComplete { get; set; }
+
     }
     internal class Employee
     {
