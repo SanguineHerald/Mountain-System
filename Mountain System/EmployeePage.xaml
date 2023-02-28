@@ -18,14 +18,18 @@
                 </StackPanel>
             </Border>
             <StackPanel Orientation="Horizontal" Padding="20" Margin="20">
-                <Border BorderThickness="2" BorderBrush="Black">
+                <Border BorderThickness="2" BorderBrush="Black">                    
                     <StackPanel Orientation="Vertical" Padding="20" >
-                        <ListView>
+                        <StackPanel Orientation="Horizontal" Padding="5">
+                            <TextBlock Text="Select Shipper for customer orders" Padding="5"/>
+                            <ComboBox Grid.Column="4" VerticalAlignment="Center" ItemsSource="{x:Bind ViewModel.shippers}" Name="ShipperSelectionBox" SelectionChanged="ComboBox_SelectionChanged" Width="150"/>
+                        </StackPanel>
+                        
+                        <ListView  ItemsSource="{x:Bind ViewModel.unfilledOrders}">
                             <ListView.HeaderTemplate>
                                 <DataTemplate>
                                     <Grid Padding="12" Background="{ThemeResource SystemBaseLowColor}">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="100"/>
                                             <ColumnDefinition Width="100"/>
                                             <ColumnDefinition Width="100"/>
                                             <ColumnDefinition Width="100"/>
@@ -36,20 +40,25 @@
                                         <TextBlock Grid.Column="1" Text="Customer ID"/>
                                         <TextBlock Grid.Column="2" Text="Product ID"/>
                                         <TextBlock Grid.Column="3" Text="Quantity"/>
-                                        <TextBlock Grid.Column="4" Text="Shipper"/>
-                                        <TextBlock Grid.Column="5" Text="Complete Order"/>
+                                        <TextBlock Grid.Column="4" Text="Complete Order"/>
                                     </Grid>
                                 </DataTemplate>
                             </ListView.HeaderTemplate>
                             <ListView.ItemTemplate>
                                 <DataTemplate x:Name="OrderTableTemplate" x:DataType="local:Order">
                                     <Grid Height="48" AutomationProperties.Name="{x:Bind OrderID}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="100"/>
+                                        </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{x:Bind OrderID}" />
                                         <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{x:Bind CustomerID}" />
                                         <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{x:Bind ProductID}"/>
-                                        <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="{x:Bind Quantity}"/>
-                                        <ComboBox Grid.Column="4" VerticalAlignment="Center" Text=""/>
-                                        <Button Grid.Column="5" VerticalAlignment="Center" Content="Complete Order" Name="Order_Button"/>
+                                        <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="{x:Bind Quantity}"/>                                        
+                                        <Button Grid.Column="4" VerticalAlignment="Center" Content="Order" Name="Order_Button" Click="Order_Button_Click"/>
                                     </Grid>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -58,6 +67,10 @@
                 </Border>
                 <Border BorderThickness="2" BorderBrush="Black">
                     <StackPanel Orientation="Vertical" Padding="20">
+                        <StackPanel Orientation="Horizontal" Padding="5">
+                            <TextBlock Text="Backorder products with low supply" Padding="5"/>
+                           
+                        </StackPanel>
                         <ListView ItemsSource="{x:Bind ViewModel.lowProducts}">
                             <ListView.HeaderTemplate>
                                 <DataTemplate>
@@ -67,13 +80,11 @@
                                             <ColumnDefinition Width="100"/>
                                             <ColumnDefinition Width="100"/>
                                             <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="100"/>
                                         </Grid.ColumnDefinitions>                                        
                                         <TextBlock Grid.Column="0" Text="Product ID"/>
                                         <TextBlock Grid.Column="1" Text="Supplier ID"/>
                                         <TextBlock Grid.Column="2" Text="In Stock"/>
-                                        <TextBlock Grid.Column="3" Text="Min Stock"/>
-                                        <TextBlock Grid.Column="4" Text="Restock"/>
+                                        <TextBlock Grid.Column="3" Text="Restock"/>
                                     </Grid>
                                 </DataTemplate>
                             </ListView.HeaderTemplate>
@@ -84,14 +95,12 @@
                                             <ColumnDefinition Width="100"/>
                                             <ColumnDefinition Width="100"/>
                                             <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="100"/>                                            
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding ProductID}" />
                                         <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{x:Bind SupplierID}" />
                                         <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{x:Bind UnitsInStock}"/>
-                                        <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="{x:Bind ReorderThreshhold}"/>
-                                        <Button Grid.Column="4" VerticalAlignment="Center" Content="Complete Order" Name="Restock_Button"/>
+                                        <Button Grid.Column="3" VerticalAlignment="Center" Content="Order" Name="Restock_Button" Click="Restock_Button_Click"/>
                                     </Grid>
                                 </DataTemplate>
                             </ListView.ItemTemplate>  

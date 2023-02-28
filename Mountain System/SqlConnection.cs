@@ -36,10 +36,10 @@ namespace Mountain_System
         }
         public void CompleteOrder(Order order, int shipperId, int employeeID)
         {
-            DateTime myDateTime = DateTime.Now;
-            string sqlDate = myDateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
-            string sqlOrder = "UPDATE Orders SET OrderComplete=1, ShippedDate=@date,ShipperID=@shipID,EmployeeID=@employeeID WHERE OrderID=@orderID";
-            this.sqlConnection.Execute(sqlOrder, new { date = sqlDate, shipID = shipperId, employeeID = employeeID, orderID = order.OrderID });
+            //DateTime myDateTime = DateTime.Now;
+            //string sqlDate = myDateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
+            string sqlOrder = "UPDATE Orders SET OrderComplete=1, ShipperID=@shipID,EmployeeID=@employeeID WHERE OrderID=@orderID";
+            this.sqlConnection.Execute(sqlOrder, new {  shipID = shipperId, employeeID = employeeID, orderID = order.OrderID });
         }
         public List<Product> GetProducts()
         {
@@ -63,7 +63,7 @@ namespace Mountain_System
         }
         public List<Product> GetLowSupplyProducts()
         {
-            string sql = "select * from Products WHERE ReorderThreshold < UnitsInStock";
+            string sql = "select * from Products WHERE ReorderThreshold > UnitsInStock";
             List<Product> products = this.sqlConnection.Query<Product>(sql).ToList();
             return products;
         }
@@ -85,6 +85,13 @@ namespace Mountain_System
             string sql = "SELECT * FROM Employees";
             List<Employee> employees = this.sqlConnection.Query<Employee>(sql).ToList();
             return employees;
+        }
+
+        public List<Shipper> GetShippers()
+        {
+            string sql = "SELECT * FROM Shippers";
+            List<Shipper> shipper = this.sqlConnection.Query<Shipper>(sql).ToList();
+            return shipper;
         }
 
     }
