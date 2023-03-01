@@ -13,7 +13,8 @@ namespace Mountain_System
 {
     internal class SqlConn
     {
-        private string connectionString = @"server=AZURE-D8JGSQ4UA\SQLEXPRESS;initial catalog=Capstone;integrated Security=SSPI;";
+        private string connectionString = @"server=(local);initial catalog=Capstone;integrated Security=SSPI;";
+        //private string connectionString = @"server=AZURE-D8JGSQ4UA\SQLEXPRESS;initial catalog=Capstone;integrated Security=SSPI;";
 
         private SqlConnection sqlConnection { get; set; }
 
@@ -140,7 +141,7 @@ namespace Mountain_System
             this.ProductID = ProductID;
             this.Quantity = Quantity;
             this.ShipperID = ShipperID;
-            this.OrderID = OrderComplete;
+            this.OrderComplete = OrderComplete;
         }
         public int OrderID { get; set; }
         public int  CustomerID { get; set; }
